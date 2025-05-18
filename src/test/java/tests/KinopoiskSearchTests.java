@@ -4,16 +4,19 @@ import com.codeborne.selenide.Configuration;
 import enums.Navigator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EnumSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
 import pages.KinopoiskMainPage;
+import utils.RandomValues;
+
+import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Selenide.open;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class KinopoiskSearchTests extends BaseTest {
 
     KinopoiskMainPage page = new KinopoiskMainPage();
+    RandomValues randomValues = new RandomValues();
 
     @BeforeAll
     static void setUp() {
@@ -65,5 +68,25 @@ public class KinopoiskSearchTests extends BaseTest {
         page.goWideSearch()
                 .goSearchBestFilms();
         page.checkNavigatorTransfers(navigator.description, navigator.path);
+    }
+
+    public Stream<Arguments> checkPersonsSearch() {
+        return Stream.of(
+                Arguments.of(randomValues.getRandomPerson()),
+                Arguments.of(randomValues.getRandomPerson())
+        );
+    }
+
+    @ParameterizedTest(name = "Для поискового запроса {0} - найдена один наиболее подходящая персона")
+    @MethodSource
+    @Tags({
+            @Tag("WEB"),
+            @Tag("SMOKE")
+    })
+    @DisplayName("Проверка поиска : по персонам")
+    void checkPersonsSearch(String personName) {
+        page.setSearchInput(personName)
+                .confirmSearching();
+        page.checkMostWantedHintHas(personName);
     }
 }

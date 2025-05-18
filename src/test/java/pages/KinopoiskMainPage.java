@@ -19,7 +19,7 @@ public class KinopoiskMainPage {
     SelenideElement mostWantedName = mostWanted.$(byClassName("name"));
     SelenideElement mostWantedFilmLabel = mostWantedName.$(byAttribute("data-type","film"));
     SelenideElement mostWantedYear = mostWantedName.$(byClassName("year"));
-    SelenideElement mostWantedLabelWithTime = mostWantedName.sibling(0);
+    SelenideElement mosWantedGrayLabel = mostWantedName.sibling(0);
 
     public KinopoiskMainPage setSearchInput(String text){
         searchInput.setValue(text);
@@ -41,6 +41,9 @@ public class KinopoiskMainPage {
     public void checkMostWantedHas(String name){
         mostWantedFilmLabel.shouldHave(partialText(name));
     }
+    public void checkMostWantedHintHas(String name){
+        mosWantedGrayLabel.shouldHave(partialText(name));
+    }
 
     public void checkNavigatorTransfers(String name, String expectedPath){
         $("#block_left").$(byTagAndText("a", name)).click();
@@ -49,6 +52,7 @@ public class KinopoiskMainPage {
 
     public void checkMostWantedHasTimeAndYear(String time, String year){
         mostWantedYear.shouldHave(text(year));
-        mostWantedLabelWithTime.should(matchText(format("^.*, %s мин", time)));
+        mosWantedGrayLabel.should(matchText(format("^.*, %s мин", time)));
     }
+
 }

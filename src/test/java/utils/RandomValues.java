@@ -7,8 +7,8 @@ import java.util.Locale;
 public class RandomValues {
     Faker ruFaker = new Faker(new Locale("ru"));
 
-    public String getRandomGameOfThronePerson() {
-        return ruFaker.gameOfThrones().character();
+    public String getRandomPerson() {
+        return ruFaker.artist().name();
     }
     public String getRandomUserFirstName() {
         return ruFaker.name().firstName();
