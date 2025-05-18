@@ -1,9 +1,9 @@
 package enums;
 
 public enum Navigator {
-    MARKS("оценки","/votes"),
+    MARKS("оценки","/votes/"),
     TOP250("Top250","/lists/movies/top250/"),
-    LISTS("списки","");
+    LISTS("списки","/lists/categories/movies/");
 
     public final String description;
     public final String path;

@@ -43,8 +43,8 @@ public class KinopoiskMainPage {
     }
 
     public void checkNavigatorTransfers(String name, String expectedPath){
-        $("#block_left_pad").$(byTagAndText("a", name)).click();
-        Assertions.assertEquals(WebDriverRunner.url(), Configuration.baseUrl + expectedPath);
+        $("#block_left").$(byTagAndText("a", name)).click();
+        Assertions.assertEquals(Configuration.baseUrl + expectedPath, WebDriverRunner.url());
     }
 
     public void checkMostWantedHasTimeAndYear(String time, String year){
